@@ -12,13 +12,16 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import javax.persistence.SqlResultSetMappings;
 import javax.sql.DataSource;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
@@ -27,6 +30,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ApplicationBelajar001Application.class)
+@Sql(
+        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD,
+        scripts = "/data/peserta.sql"
+)
 public class PesertaDaoTest {
     
     @Autowired
@@ -34,7 +41,7 @@ public class PesertaDaoTest {
     
     @Autowired
     private DataSource ds;
-    
+       
     @Test
     public void testInsert() throws SQLException{
         Peserta p = new Peserta();
@@ -58,6 +65,17 @@ public class PesertaDaoTest {
     public void testHitung(){
         Long jumlah = pd.count();
         Assert.assertEquals(3L, jumlah.longValue());
+    }
+    
+    @Test
+    public void testCariById(){
+        Peserta p = pd.findOne("aa1");
+        Assert.assertNotNull(p);
+        Assert.assertEquals("peserta test 001", p.getNama());
+        Assert.assertEquals("peserta.test001@gmail.com", p.getEmail());
+        
+        Peserta px = pd.findOne("aa1x");
+        Assert.assertNull(px);
     }
     
     @After

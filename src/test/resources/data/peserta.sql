@@ -1,3 +1,6 @@
+delete from peserta_pelatihan;
+delete from peserta;
+
 insert into peserta(id , nama , email , tanggal_lahir)
 values ('aa1' , 'peserta test 001' , 'peserta.test001@gmail.com' , '2011-01-01');
 

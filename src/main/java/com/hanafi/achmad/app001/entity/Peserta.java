@@ -7,10 +7,13 @@
 package com.hanafi.achmad.app001.entity;
 
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
@@ -35,6 +38,7 @@ public class Peserta {
     @Column(name="tanggal_lahir",nullable = false)
     @Temporal(TemporalType.DATE)
     private Date tanggalLahir;
+    
 
     public String getId() {
         return id;

@@ -6,10 +6,13 @@
 
 package com.hanafi.achmad.app001.entity;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,7 +20,7 @@ import org.hibernate.annotations.GenericGenerator;
  *
  * @author achmad
  */
-@Entity @Table(name = "m_materi")
+@Entity @Table(name = "materi")
 public class Materi {
     
     @Id @GeneratedValue(generator = "uuid")
@@ -27,9 +30,41 @@ public class Materi {
     @Column(nullable = false , unique = true , length = 64)
     private String kode;
     
+    @Column(nullable = false)
     private String nama;
     
-    
-    
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy ="materi")
+    private List<Sesi> daftarSesiPelatihan;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getKode() {
+        return kode;
+    }
+
+    public void setKode(String kode) {
+        this.kode = kode;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public List<Sesi> getDaftarSesiPelatihan() {
+        return daftarSesiPelatihan;
+    }
+
+    public void setDaftarSesiPelatihan(List<Sesi> daftarSesiPelatihan) {
+        this.daftarSesiPelatihan = daftarSesiPelatihan;
+    }
 }
