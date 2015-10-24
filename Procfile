@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -Dspring.procfiles.active=heroku -jar target/belajar-001-0.0.1-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -jar target/belajar-001-0.0.1-SNAPSHOT.jar
